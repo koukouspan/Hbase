@@ -39,7 +39,7 @@ public class HbaseAdOperate {
         // 获取hbase table对象
         TableName hTableName = TableName.valueOf(tableName);
 
-        try {
+
             if (!admin.tableExists(hTableName)) {
                 // 生成表描述
                 HTableDescriptor hTableDescriptor = new HTableDescriptor(hTableName);
@@ -55,10 +55,7 @@ public class HbaseAdOperate {
             } else {
                 logger.warn(tableName + "表已存在");
             }
-        } finally {
-            admin.close();
-            connection.close();
-        }
+
     }
 
     // 删除表
@@ -66,7 +63,6 @@ public class HbaseAdOperate {
         // 获取hbase table对象
         TableName hTableName = TableName.valueOf(tableName);
         //执行删除
-        try {
             if (admin.tableExists(hTableName)) {
                 if (admin.isTableEnabled(hTableName)){
                     admin.disableTable(hTableName);
@@ -75,10 +71,7 @@ public class HbaseAdOperate {
             } else {
                 logger.warn(tableName + "表不存在");
             }
-        } finally {
-            admin.close();
-            connection.close();
-        }
+
 
     }
 

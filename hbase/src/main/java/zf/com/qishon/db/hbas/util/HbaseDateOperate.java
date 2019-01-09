@@ -23,23 +23,30 @@ public class HbaseDateOperate {
         try {
             connection = HbaseConnection.getConnection();
             admin = connection.getAdmin();
+            System.out.println("连接成功");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static void putOneValue(String tableName ,String rowKey ,String familyCol ,String column ,String value) throws IOException {
+
         TableName hTableName =TableName.valueOf(tableName);
+        System.out.println(admin.tableExists(TableName.valueOf("zftest")));
+
         if(admin.tableExists(hTableName)){
             Table hTable = null;
             try {
                 hTable =connection.getTable(hTableName);
             }catch (IOException e){
                 logger.error("连接失败",e);
+
             }
             Put put =new Put(Bytes.toBytes(rowKey));
             put.addColumn(Bytes.toBytes(familyCol),Bytes.toBytes(column),Bytes.toBytes(value));
             hTable.put(put);
+            logger.info("写入完成");
+            hTable.close();
         }
         else {
             logger.error(tableName+"表不存在");
