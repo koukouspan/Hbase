@@ -13,7 +13,7 @@ public class HbaseExecWork {
         //建表
         String[] familyCl ={"f1","f2","f3"};
         try {
-            adOperate.createTable("qstest:zf_test",familyCl,3);
+            adOperate.createTable("zf_test",familyCl,3);
             adOperate.connection.close();
         } catch (IOException e) {
             e.printStackTrace();
